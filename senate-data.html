@@ -2,63 +2,89 @@
 <html lang="en">
 
 <head>
-
+    <title>Senate data page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- CUSTOM STYLESHEET -->
+    <link rel="stylesheet" href="./styles/tgif.css">
 </head>
 
 
 <body>
+    <div class="container">
 
-    <nav>
-        <div>
-            <div>
-                <a href="#">TGIF</a>
+        <!-- HEADER -->
+        <header class="row">
+            <div class="col-md-6">
+                <a href="#"><img src="images/TGIF_logo.png" alt="TGIF logo" class="custom-logo"></a>
             </div>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li>
-                    <a href="#">Congress 113</a>
-                    <ul>
-                        <li><a href="#">Senate</a></li>
-                        <li><a href="#">House</a></li>
+            <div class="col-md-6 d-flex flex-wrap align-content-center justify-content-end">
+                <div>
+                    <i class="far fa-envelope"></i>
+                    <a href="mailto:info@tgif.net">info@tgif.net</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-sm bg-light border border-secondary rounded mb-5">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        Congress 113
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="dropdown-item">Senate</a></li>
+                        <li><a href="#" class="dropdown-item">House</a></li>
                     </ul>
                 </li>
             </ul>
-        </div>
-    </nav>
+        </nav>
 
-
-    <header>
+        <!-- TABLE -->
         <div>
-        </div>
-    </header>
-    <!--Table container-->
-    <div>
-        <h2>Senators</h2>
-        <p>First convened in 1789, the composition and powers of the Senate are established in Article One of the U.S.
-            Constitution. Each state is represented by two senators, regardless of population, who serve staggered
-            six-year terms. The Senate has several exclusive powers not granted to the House, including consenting to
-            treaties as a precondition to their ratification and consenting to or confirming appointments of Cabinet
-            secretaries, federal judges, other federal executive officials, military officers, regulatory officials,
-            ambassadors, and other federal uniformed officers, as well as trial of federal officials impeached by the
-            House.</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Full name</th>
-                    <th>Party</th>
-                    <th>State</th>
-                    <th>Seniority (years)</th>
-                    <th>% votes with party</th>
-                </tr>
-            </thead>
-            <tbody id="data-table">
+            <h2>Senators</h2>
+            <p>First convened in 1789, the composition and powers of the Senate are established in Article One of the
+                U.S.
+                Constitution. Each state is represented by two senators, regardless of population, who serve staggered
+                six-year terms. The Senate has several exclusive powers not granted to the House, including consenting
+                to
+                treaties as a precondition to their ratification and consenting to or confirming appointments of Cabinet
+                secretaries, federal judges, other federal executive officials, military officers, regulatory officials,
+                ambassadors, and other federal uniformed officers, as well as trial of federal officials impeached by
+                the
+                House.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Full name</th>
+                        <th>Party</th>
+                        <th>State</th>
+                        <th>Seniority (years)</th>
+                        <th>% votes with party</th>
+                    </tr>
+                </thead>
+                <tbody id="data-table">
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+        <footer class="bg-light text-center mt-5 py-4 border border-secondary rounded">
+            <p class="m-0">&copy; TGIF 2019 | All Rights Reserved</p>
+        </footer>
+
     </div>
     <script src="./javascript/congress_113_senate.js"></script>
     <script src="./javascript/senate_js.js"></script>
-
 </body>
 
 </html>
