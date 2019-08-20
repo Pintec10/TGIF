@@ -1,3 +1,44 @@
 .custom-logo {
-    height: 150px;
+    height: 80px;
+}
+
+.navbar {
+    padding: 0;
+}
+
+.nav-item > a {
+    padding: 12px;
+}
+
+.navbar-expand-sm .navbar-nav .nav-link:first-child  {
+    padding-right: .5rem;
+    padding-left: 16px;
+}
+
+.navbar a:hover {
+    background-color:#999;
+    color: white!important;
+}
+
+.custom-indented-text p {
+    text-indent: 1em;
+}
+
+.custom-col-large {
+    width: 65%;
+}
+
+.custom-col-small {
+    max-width: 35%;
+    margin: 1em;
+}
+
+.custom-home-pic {
+    object-fit: contain;
+    border-radius: 15px;
+}
+
+.active {
+    color: white!important;
+    background-color:#007BFF;
 }
