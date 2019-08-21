@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Senate data page</title>
+    <title>Senate information</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- FONT AWESOME -->
@@ -40,17 +40,35 @@
                         Congress 113
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item text-primary active">Senate</a></li>
                         <li><a href="./house-data.html" class="dropdown-item text-primary">House</a></li>
+                        <li><a href="#" class="dropdown-item text-primary active">Senate</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        Attendance
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="./house-attendance.html" class="dropdown-item text-primary">House</a></li>
+                        <li><a href="./senate-attendance.html" class="dropdown-item text-primary">Senate</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        Party Loyalty
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="./house-loyalty.html" class="dropdown-item text-primary">House</a></li>
+                        <li><a href="./senate-loyalty.html" class="dropdown-item text-primary">Senate</a></li>
                     </ul>
                 </li>
             </ul>
         </nav>
 
-
+        <!-- CONTENT-->
         <main>
             <div class="row">
-                <article class="col-sm-8">
+                <article class="col-sm-8 mb-3">
                     <h2>Senators</h2>
                     <p>First convened in 1789, the composition and powers of the Senate are established in Article One
                         of the U.S. Constitution. Each state is represented by two senators, regardless of population,
@@ -69,7 +87,7 @@
             <table class="table table-hover text-center">
                 <thead>
                     <tr>
-                        <th>Full name</th>
+                        <th>Senator</th>
                         <th>Party</th>
                         <th>State</th>
                         <th>Seniority (years)</th>
@@ -91,7 +109,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!-- JS SCRIPTS -->
     <script src="./javascript/congress_113_senate.js"></script>
-    <script src="./javascript/senate_js.js"></script>
+    <script src="./javascript/view_data_common.js"></script>
 </body>
 
 </html>
