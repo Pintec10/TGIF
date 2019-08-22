@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Senate loyalty statistics</title>
+    <title>House attendance statistics</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- FONT AWESOME -->
@@ -44,40 +44,51 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">
                         Attendance
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="./house-attendance.html" class="dropdown-item text-primary">House</a></li>
+                        <li><a href="#" class="dropdown-item text-primary active">House</a></li>
                         <li><a href="./senate-attendance.html" class="dropdown-item text-primary">Senate</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         Party Loyalty
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="./house-loyalty.html" class="dropdown-item text-primary">House</a></li>
-                        <li><a href="#" class="dropdown-item text-primary active">Senate</a></li>
+                        <li><a href="./senate-loyalty.html" class="dropdown-item text-primary">Senate</a></li>
                     </ul>
                 </li>
             </ul>
         </nav>
 
+
         <!-- CONTENT -->
         <main>
             <div class="row">
                 <div class="col-md-6 mb-5">
-                    <h2>Party Loyalty</h2>
-                    <p>Those who consider themselves to be strong partisans, strong Democrats and strong Republicans
-                        respectively,
-                        tend to be the most faithful in voting for their party's nominee for office and legislation that
-                        backs
-                        their
-                        party's agenda. </p>
+                    <h2>Attendance</h2>
+                    <p>The Constitution specifies that a majority of members constitutes a quorum to do business in each
+                        house.
+                        Representatives and senators rarely force the presence of a quorum by demanding quorum calls;
+                        thus,
+                        in
+                        most cases, debates continue even if a majority is not present.</p>
+
+                    <p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator
+                        stating
+                        "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most
+                        formal
+                        matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote
+                        by
+                        electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice
+                        President
+                        may (if present) cast the tiebreaking vote.</p>
                 </div>
                 <div class="col-md-6 mb-5 text-center ">
-                    <h2>Senate at a glance</h2>
+                    <h2>House at a glance</h2>
                     <table class="table table-hover mt-3">
                         <thead>
                             <tr>
@@ -114,14 +125,14 @@
             <hr class="mb-5">
             <div class="row text-center ">
                 <div class="col-md-6 mb-5">
-                    <h2>Least Loyal</h2>
-                    <h4>(Bottom 10% of Party)</h4>
+                    <h2>Least Engaged</h2>
+                    <h4>(Bottom 10% Attendance)</h4>
                     <table class="table table-hover mt-3">
                         <thead>
                             <tr>
-                                <th>Senator</th>
-                                <th>No. of Party Votes</th>
-                                <th>% Party Votes</th>
+                                <th>Representative</th>
+                                <th>No. of Missed Votes</th>
+                                <th>% Missed</th>
                             </tr>
                         </thead>
                         <tbody id="least-table">
@@ -130,14 +141,14 @@
                     </table>
                 </div>
                 <div class="col-md-6 mb-5">
-                    <h2>Most Loyal</h2>
-                    <h4>(Top 10% of Party)</h4>
+                    <h2>Most Engaged</h2>
+                    <h4>(Top 10% Attendance)</h4>
                     <table class="table table-hover mt-3">
                         <thead>
                             <tr>
-                                <th>Senator</th>
-                                <th>No. of Party Votes</th>
-                                <th>% Party Votes</th>
+                                <th>Representative</th>
+                                <th>No. of Missed Votes</th>
+                                <th>% Missed</th>
                             </tr>
                         </thead>
                         <tbody id="most-table">
@@ -159,13 +170,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!-- JS SCRIPTS -->
-    <script src="./javascript/congress_113_senate.js"></script>
+    <script src="./javascript/congress_113_house.js"></script>
     <script src="./javascript/model.js"></script>
     <script src="./javascript/view_stats.js"></script>
     <script>
-        ranking(membersArray, "votes_with_party_pct", 10, 10);
-        buildTable("least-table", lowerResultArr, "votes_with_party", "votes_with_party_pct");
-        buildTable("most-table", higherResultArr, "votes_with_party", "votes_with_party_pct");
+        ranking(membersArray, "missed_votes_pct", 10, 10);
+        buildTable("least-table", higherResultArr, "missed_votes", "missed_votes_pct");
+        buildTable("most-table", lowerResultArr, "missed_votes", "missed_votes_pct");
     </script>
 </body>
 

@@ -40,19 +40,100 @@ function atAGlanceData(arr) {
     statistics.membersRep = listRep.length;
     statistics.membersInd = listInd.length;
     statistics.membersTotal = listDem.length + listRep.length + listInd.length;
-    statistics.avgVWPDem = (avgDem / listDem.length).toFixed(2);
-    statistics.avgVWPRep = (avgRep / listRep.length).toFixed(2);
-    statistics.avgVWPInd = (avgInd / listInd.length).toFixed(2);
-    statistics.avgVWPTotal = (avgTotal / membersArray.length).toFixed(2);
+    statistics.avgVWPDem = (avgDem / listDem.length).toFixed(2) + " %";
+    statistics.avgVWPRep = (avgRep / listRep.length).toFixed(2) + " %";
+    //statistics.avgVWPInd = listInd.length == 0 ? 0 : (avgInd / listInd.length).toFixed(2);
+    statistics.avgVWPInd = (avgInd / listInd.length).toFixed(2) + " %";
+    statistics.avgVWPTotal = (avgTotal / membersArray.length).toFixed(2) + " %";
+    for (key in statistics) {
+        statistics[key] === "NaN %" ? statistics[key] = "---" : "";
+    }
 }
 
 atAGlanceData(membersArray);
 
 
+
 //
-// RESULTS LOGGING TO CONSOLE
-console.log("Dems: " + listDem.length + ", Reps: " + listRep.length + ", Inds: " + listInd.length);
-let total = listDem.length + listRep.length + listInd.length;
-console.log("Total members: " + total);
-console.log("statistics object below:");
-console.log(statistics);
+// RANKING FUNCTION, returns a list of lower x% and a list of the higher y% (x, y: cutoffPct___) elements
+// of the given startingList array, based on the values of a selected ranking parameter.
+// Example of how to call it in the HTML script:
+// ranking(membersArray, "votes_with_party_pct", 20, 10);
+
+
+let lowerResultArr = [];
+let higherResultArr = [];
+//adding the "votes_with_party" numerical element (not present in initial data)
+for (let n in membersArray) {
+    membersArray[n].votes_with_party = Math.round(membersArray[n].total_votes * membersArray[n].votes_with_party_pct / 100);
+}
+
+function ranking(startingList, rankingParameter, cutoffPctLower, cutoffPctHigher) {
+    let lowerRangeElements = 0;
+    let higherRangeElements = 0;
+    let cutoffValueLower = 0;
+    let cutoffValueHigher = 0;
+
+    //determine cutoff values
+
+    startingList.sort(function (a, b) { return a[rankingParameter] - b[rankingParameter] });
+    lowerRangeElements = Math.round(startingList.length * cutoffPctLower / 100);
+    higherRangeElements = Math.round(startingList.length * cutoffPctHigher / 100);
+    cutoffValueLower = startingList[lowerRangeElements - 1][rankingParameter];
+    cutoffValueHigher = startingList[startingList.length - higherRangeElements][rankingParameter];
+
+    //build and order result arrays containing lower/higher elements
+    lowerResultArr = startingList.filter(function (x) { return x[rankingParameter] <= cutoffValueLower });
+    higherResultArr = startingList.filter(x => x[rankingParameter] >= cutoffValueHigher);
+    higherResultArr.sort(function (a, b) { return b[rankingParameter] - a[rankingParameter] });
+
+
+}
+
+//console.log(membersArray);
+
+
+// ROLLBACK BACKUP - USE IN CASE OF A SCREW-UP
+/*
+
+let lowerResultArr = [];
+let higherResultArr = []
+
+function ranking(startingList, rankingParameter, cutoffPctLower, cutoffPctHigher) {
+    let orderedValuesArr = [];
+    let lowerRange = 0;
+    let higherRange = 0;
+    let cutoffValueLower = 0;
+    let cutoffValueHigher = 0;
+
+    //determine cutoff values
+    for (let i = 0; i < startingList.length; i++) {
+        orderedValuesArr.push(membersArray[i][rankingParameter]);
+    }
+    orderedValuesArr.sort(function (a, b) { return a - b });
+    lowerRange = Math.round(orderedValuesArr.length * cutoffPctLower / 100);
+    higherRange = Math.round(orderedValuesArr.length * cutoffPctHigher / 100);
+    cutoffValueLower = orderedValuesArr[lowerRange - 1];
+    cutoffValueHigher = orderedValuesArr[orderedValuesArr.length - higherRange];
+    for (let j = 0; j < startingList.length; j++) {
+        if (startingList[j][rankingParameter] <= cutoffValueLower) {
+            lowerResultArr.push(startingList[j]);
+        }
+        if (startingList[j][rankingParameter] >= cutoffValueHigher) {
+            higherResultArr.push(startingList[j]);
+        }
+    }
+    lowerResultArr.sort(function (a, b) { return a[rankingParameter] - b[rankingParameter] })
+    higherResultArr.sort(function (a, b) { return b[rankingParameter] - a[rankingParameter] })
+}
+
+*/
+
+//TEST
+/*
+let a = 0;
+a = 0 / a;
+b = a.toFixed(2);
+console.log("a: " + a + typeof a);
+console.log("b: " + b + typeof b);
+*/

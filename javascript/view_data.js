@@ -9,7 +9,7 @@ function buildTable(arr) {
         let stateCell = document.createElement("td");
         let seniorityCell = document.createElement("td");
         let votesCell = document.createElement("td");
-        //ADDING
+        // 
         let congresspersonLink = document.createElement("a");
         congresspersonLink.href = arr[i].url;
         congresspersonLink.target = "_blank";
@@ -17,12 +17,13 @@ function buildTable(arr) {
         if (arr[i].middle_name !== null) {
             congresspersonLink.innerHTML += " " + arr[i].middle_name;
         }
-        //END ADDING
+        // 
         partyCell.innerHTML = arr[i].party;
         stateCell.innerHTML = arr[i].state;
         seniorityCell.innerHTML = arr[i].seniority;
         votesCell.innerHTML = arr[i].votes_with_party_pct + "%";
-        fullNameCell.append(congresspersonLink); //ADDED
+        //
+        fullNameCell.append(congresspersonLink);
         row.append(fullNameCell, partyCell, stateCell, seniorityCell, votesCell);
         tableBody.append(row);
     }
