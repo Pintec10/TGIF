@@ -91,27 +91,58 @@
             </div>
 
             <!-- TABLE FILTERS -->
-            <div class="row mb-3">
-                <div class="col-md-8">
-                    <span class="mr-3">Filter by Party:</span>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="filter-party" value="democrat"
-                            id="cb-democrat">
-                        <label class="form-check-label" for="cb-democrat">Democrat</label>
+            <div class="form-inline justify-content-between mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend custom-control pl-0">
+                        <!--if rollback to non-custom checkbox, remove "custom-control" above this line-->
+                        <legend class="input-group-text">Filter by Party:</legend>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="filter-party" value="republican"
-                            id="cb-republican">
-                        <label for="cb-republican" class="form-check-label">Republican</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="filter-party" value="independent"
-                            id="cb-independent">
-                        <label for="cb-independent" class="form-check-label">Independent</label>
+                    <div class="form-control ">
+                        <div class="form-inline">
+                            <div class="custom-control custom-switch custom-control-inline">
+                                <input class="custom-control-input" type="checkbox" name="filter-party" value="democrat"
+                                    id="cb-democrat">
+                                <label for="cb-democrat" class="custom-control-label">Democrat</label>
+                            </div>
+                            <div class="custom-control custom-switch custom-control-inline">
+                                <input class="custom-control-input" type="checkbox" name="filter-party"
+                                    value="republican" id="cb-republican">
+                                <label for="cb-republican" class="custom-control-label">Republican</label>
+                            </div>
+                            <div class="custom-control custom-switch custom-control-inline">
+                                <input class="custom-control-input" type="checkbox" name="filter-party"
+                                    value="independent" id="cb-independent">
+                                <label for="cb-independent" class="custom-control-label">Independent</label>
+                            </div>
+                            <!--CODE BELOW IS FOR ROLLBACK TO NON-CUSTOM CHECKBOXES-->
+                            <!--<div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="filter-party" value="democrat"
+                                    id="cb-democrat">
+                                <label class="form-check-label" for="cb-democrat">Democrat</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="filter-party" value="republican"
+                                    id="cb-republican">
+                                <label for="cb-republican" class="form-check-label">Republican</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="filter-party" value="independent"
+                                    id="cb-independent">
+                                <label for="cb-independent" class="form-check-label">Independent</label>
+                            </div>-->
+
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4 text-right">
-                    <p id="testing">here dropdown...</p>
+
+                <div class="input-group">
+                    <div class="input-group-prepend custom-control">
+                        <!--if rollback to non-custom checkbox, remove "custom-control" above this line-->
+                        <legend class="input-group-text">Filter by State:</legend>
+                    </div>
+                    <select name="filter-state" id="state-dropdown" class="custom-select">
+                        <option value="all" selected>All states</option>
+                    </select>
                 </div>
             </div>
 
@@ -122,7 +153,7 @@
                         <th>Representative</th>
                         <th>Party</th>
                         <th>State</th>
-                        <th>Seniority (years)</th>
+                        <th>Years in Office</th>
                         <th>% votes with party</th>
                     </tr>
                 </thead>

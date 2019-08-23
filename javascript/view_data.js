@@ -34,6 +34,7 @@ buildTable(membersArray);
 
 //
 // FILTERS
+
 let inputElements = document.getElementsByTagName("input");
 for (let j = 0; j < inputElements.length; j++) {
     inputElements[j].onchange = filterData;
@@ -43,19 +44,44 @@ function filterData() {
     let displayedArray = membersArray;
     if (document.getElementById("cb-democrat").checked || document.getElementById("cb-republican").checked || document.getElementById("cb-independent").checked) {
         if (document.getElementById("cb-democrat").checked === false) {
-            displayedArray = displayedArray.filter(x => x.party != "D");
+            displayedArray = displayedArray.filter(x => x.party !== "D");
         }
         if (document.getElementById("cb-republican").checked === false) {
-            displayedArray = displayedArray.filter(x => x.party != "R");
+            displayedArray = displayedArray.filter(x => x.party !== "R");
         }
         if (document.getElementById("cb-independent").checked === false) {
-            displayedArray = displayedArray.filter(x => x.party != "I");
+            displayedArray = displayedArray.filter(x => x.party !== "I");
         }
     }
     tableBody.innerHTML = "";
     buildTable(displayedArray);
 }
 
+//
+// BUILD DROPDOWN MENU
+
+
+function buildDropdown() {
+    let statesArray = [];
+    for (let i = 0; i < membersArray.length; i++) {
+        if (statesArray.includes(membersArray[i].state)) { } else {
+            statesArray.push(membersArray[i].state);
+        }
+    }
+    statesArray.sort();
+    //console.log(statesArray);
+    let dropdownMenu = document.getElementById("state-dropdown");
+    console.log(dropdownMenu);
+    for (let i in statesArray) {
+        //console.log(statesArray);
+        let stateOption = document.createElement("option");
+        stateOption.innerHTML = statesArray[i];
+        console.log(stateOption);
+        dropdownMenu.append(stateOption);
+    }
+}
+
+buildDropdown();
 
 
 
