@@ -31,3 +31,34 @@ function buildTable(arr) {
 
 buildTable(membersArray);
 
+
+//
+// FILTERS
+let inputElements = document.getElementsByTagName("input");
+for (let j = 0; j < inputElements.length; j++) {
+    inputElements[j].onchange = filterData;
+}
+
+function filterData() {
+    let displayedArray = membersArray;
+    if (document.getElementById("cb-democrat").checked || document.getElementById("cb-republican").checked || document.getElementById("cb-independent").checked) {
+        if (document.getElementById("cb-democrat").checked === false) {
+            displayedArray = displayedArray.filter(x => x.party != "D");
+        }
+        if (document.getElementById("cb-republican").checked === false) {
+            displayedArray = displayedArray.filter(x => x.party != "R");
+        }
+        if (document.getElementById("cb-independent").checked === false) {
+            displayedArray = displayedArray.filter(x => x.party != "I");
+        }
+    }
+    tableBody.innerHTML = "";
+    buildTable(displayedArray);
+}
+
+
+
+
+
+
+
