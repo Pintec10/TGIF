@@ -100,18 +100,18 @@
                     <div class="form-control ">
                         <div class="form-inline">
                             <div class="custom-control custom-switch custom-control-inline">
-                                <input class="custom-control-input" type="checkbox" name="filter-party" value="democrat"
-                                    id="cb-democrat">
+                                <input onchange="changeSelectedParties()" class="custom-control-input" type="checkbox"
+                                    name="filter-party" value="D" id="cb-democrat">
                                 <label for="cb-democrat" class="custom-control-label">Democrat</label>
                             </div>
                             <div class="custom-control custom-switch custom-control-inline">
-                                <input class="custom-control-input" type="checkbox" name="filter-party"
-                                    value="republican" id="cb-republican">
+                                <input onchange="changeSelectedParties()" class="custom-control-input" type="checkbox"
+                                    name="filter-party" value="R" id="cb-republican">
                                 <label for="cb-republican" class="custom-control-label">Republican</label>
                             </div>
                             <div class="custom-control custom-switch custom-control-inline">
-                                <input class="custom-control-input" type="checkbox" name="filter-party"
-                                    value="independent" id="cb-independent">
+                                <input onchange="changeSelectedParties()" class="custom-control-input" type="checkbox"
+                                    name="filter-party" value="I" id="cb-independent">
                                 <label for="cb-independent" class="custom-control-label">Independent</label>
                             </div>
                             <!--CODE BELOW IS FOR ROLLBACK TO NON-CUSTOM CHECKBOXES-->
@@ -140,7 +140,8 @@
                         <!--if rollback to non-custom checkbox, remove "custom-control" above this line-->
                         <legend class="input-group-text">Filter by State:</legend>
                     </div>
-                    <select name="filter-state" id="state-dropdown" class="custom-select">
+                    <select onchange="changeSelectedStates()" name="filter-state" id="state-dropdown"
+                        class="custom-select">
                         <option value="all" selected>All states</option>
                     </select>
                 </div>

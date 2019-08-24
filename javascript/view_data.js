@@ -1,8 +1,12 @@
-let tableBody = document.getElementById("data-table");
 let membersArray = data.results[0].members;
 
+//
+//TABLE BUILDER
 function buildTable(arr) {
+    let tableBody = document.getElementById("data-table");
+    tableBody.innerHTML = "";
     for (i = 0; i < arr.length; i++) {
+
         let row = document.createElement("tr");
         let fullNameCell = document.createElement("td");
         let partyCell = document.createElement("td");
@@ -33,12 +37,78 @@ buildTable(membersArray);
 
 
 //
-// FILTERS
+// FILTERS v2.0
+let selectedParties = [];
+let selectedStates = "all";
 
+// updates selected Parties
+function changeSelectedParties() {
+    if (event.target.checked) {
+        selectedParties.push(event.target.value);
+    } else {
+        selectedParties.splice(selectedParties.indexOf(event.target.value), 1);
+    }
+    filterData();
+}
+
+//updates selected State
+function changeSelectedStates() {
+    selectedStates = event.target.value;
+    filterData();
+}
+
+//builds the data array to use for table construction
+function filterData() {
+    let displayedArray = membersArray;
+    if (selectedParties.length !== 0) {
+        displayedArray = displayedArray.filter(x => selectedParties.includes(x.party));
+    }
+    if (selectedStates !== "all") {
+        displayedArray = displayedArray.filter(x => x.state === selectedStates);
+    }
+    buildTable(displayedArray);
+}
+
+
+
+//
+// BUILD DROPDOWN MENU
+function buildDropdown() {
+    let statesArray = [];
+
+    // build array with states
+    for (let i = 0; i < membersArray.length; i++) {
+        if (statesArray.includes(membersArray[i].state)) { } else {
+            statesArray.push(membersArray[i].state);
+        }
+    }
+    statesArray.sort();
+
+    // build menu from that array
+    let dropdownMenu = document.getElementById("state-dropdown");
+    for (let i in statesArray) {
+        let stateOption = document.createElement("option");
+        stateOption.innerHTML = statesArray[i];
+        dropdownMenu.append(stateOption);
+    }
+}
+
+buildDropdown();
+
+
+
+
+
+
+//
+// FILTERS v1.0 - worked, but not the best way to do it.
+/*
 let inputElements = document.getElementsByTagName("input");
 for (let j = 0; j < inputElements.length; j++) {
     inputElements[j].onchange = filterData;
 }
+
+document.getElementById("state-dropdown").value.onchange = console.log("dropdwn changed");
 
 function filterData() {
     let displayedArray = membersArray;
@@ -53,38 +123,7 @@ function filterData() {
             displayedArray = displayedArray.filter(x => x.party !== "I");
         }
     }
-    tableBody.innerHTML = "";
+
     buildTable(displayedArray);
 }
-
-//
-// BUILD DROPDOWN MENU
-
-
-function buildDropdown() {
-    let statesArray = [];
-    for (let i = 0; i < membersArray.length; i++) {
-        if (statesArray.includes(membersArray[i].state)) { } else {
-            statesArray.push(membersArray[i].state);
-        }
-    }
-    statesArray.sort();
-    //console.log(statesArray);
-    let dropdownMenu = document.getElementById("state-dropdown");
-    console.log(dropdownMenu);
-    for (let i in statesArray) {
-        //console.log(statesArray);
-        let stateOption = document.createElement("option");
-        stateOption.innerHTML = statesArray[i];
-        console.log(stateOption);
-        dropdownMenu.append(stateOption);
-    }
-}
-
-buildDropdown();
-
-
-
-
-
-
+*/
