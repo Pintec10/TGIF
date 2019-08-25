@@ -1,10 +1,10 @@
-console.log("YOU ARE USING NON-LIVE DATA!")
+console.log("YOU ARE USING **LIVE** DATA! (...or trying to)")
 
-let membersArray = data.results[0].members;  //UNCOMMENT FOR NON-LIVE
+//let membersArray = data.results[0].members;  //UNCOMMENT FOR NON-LIVE
 
 // -----------------
-// LIVE DATA FETCH 
-/*
+// LIVE DATA FETCH
+
 function fetchRemoteData(url, init) {
     return fetch(url, init).then(function (response) {
         return response.json();
@@ -25,14 +25,12 @@ var initObject = {
     }
 }
 
-
 fetchRemoteData("https://api.propublica.org/congress/v1/113/senate/members.json", initObject).then(function (json) {
     var dataLive = json;
     var membersArray = dataLive.results[0].members;
     buildTable(membersArray);
-    buildDropdown();
+    buildDropdown(membersArray);
 });
-*/
 // -----------------
 
 //
@@ -68,7 +66,7 @@ function buildTable(arr) {
     }
 }
 
-buildTable(membersArray); //UNCOMMENT FOR NON-LIVE
+// buildTable(membersArray); //UNCOMMENT FOR NON-LIVE
 
 
 //
@@ -108,13 +106,13 @@ function filterData() {
 
 //
 // BUILD DROPDOWN MENU
-function buildDropdown() {
+function buildDropdown(arr) {
     let statesArray = [];
 
     // build array with states
-    for (let i = 0; i < membersArray.length; i++) {
-        if (statesArray.includes(membersArray[i].state)) { } else {
-            statesArray.push(membersArray[i].state);
+    for (let i = 0; i < arr.length; i++) {
+        if (statesArray.includes(arr[i].state)) { } else {
+            statesArray.push(arr[i].state);
         }
     }
     statesArray.sort();
@@ -128,7 +126,7 @@ function buildDropdown() {
     }
 }
 
-buildDropdown(); //UNCOMMENT FOR NON-LIVE
+// buildDropdown(); //UNCOMMENT FOR NON-LIVE
 
 
 
