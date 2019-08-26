@@ -100,18 +100,18 @@
                     <div class="form-control ">
                         <div class="form-inline">
                             <div class="custom-control custom-switch custom-control-inline">
-                                <input onchange="changeSelectedParties()" class="custom-control-input" type="checkbox"
-                                    name="filter-party" value="D" id="cb-democrat">
+                                <input class="custom-control-input" type="checkbox" name="filter-party" value="D"
+                                    id="cb-democrat">
                                 <label for="cb-democrat" class="custom-control-label">Democrat</label>
                             </div>
                             <div class="custom-control custom-switch custom-control-inline">
-                                <input onchange="changeSelectedParties()" class="custom-control-input" type="checkbox"
-                                    name="filter-party" value="R" id="cb-republican">
+                                <input class="custom-control-input" type="checkbox" name="filter-party" value="R"
+                                    id="cb-republican">
                                 <label for="cb-republican" class="custom-control-label">Republican</label>
                             </div>
                             <div class="custom-control custom-switch custom-control-inline">
-                                <input onchange="changeSelectedParties()" class="custom-control-input" type="checkbox"
-                                    name="filter-party" value="I" id="cb-independent">
+                                <input class="custom-control-input" type="checkbox" name="filter-party" value="I"
+                                    id="cb-independent">
                                 <label for="cb-independent" class="custom-control-label">Independent</label>
                             </div>
                             <!--CODE BELOW IS FOR ROLLBACK TO NON-CUSTOM CHECKBOXES-->
@@ -140,8 +140,7 @@
                         <!--if rollback to non-custom checkbox, remove "custom-control" above this line-->
                         <legend class="input-group-text">Filter by State:</legend>
                     </div>
-                    <select onchange="changeSelectedStates()" name="filter-state" id="state-dropdown"
-                        class="custom-select">
+                    <select name="filter-state" id="state-dropdown" class="custom-select">
                         <option value="all" selected>All states</option>
                     </select>
                 </div>
@@ -159,7 +158,9 @@
                     </tr>
                 </thead>
                 <tbody id="data-table">
-
+                    <tr>
+                        <td colspan="5" class="text-light bg-info">Retrieving data, please wait...</td>
+                    </tr>
                 </tbody>
             </table>
         </main>
@@ -172,8 +173,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!-- JS SCRIPTS -->
-    <script src="./javascript/congress_113_house.js"></script>
-    <script src="./javascript/view_data.js"></script>
+    <!--<script src="./javascript/congress_113_house.js"></script>-->
+    <script> var chamber = "house" </script>
+    <script src="./javascript/view_data_live.js"></script>
 </body>
 
 </html>

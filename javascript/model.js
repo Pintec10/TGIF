@@ -75,7 +75,6 @@ function ranking(startingList, rankingParameter, cutoffPctLower, cutoffPctHigher
     let cutoffValueHigher = 0;
 
     //determine cutoff values
-
     startingList.sort(function (a, b) { return a[rankingParameter] - b[rankingParameter] });
     lowerRangeElements = Math.round(startingList.length * cutoffPctLower / 100);
     higherRangeElements = Math.round(startingList.length * cutoffPctHigher / 100);
@@ -127,13 +126,4 @@ function ranking(startingList, rankingParameter, cutoffPctLower, cutoffPctHigher
     higherResultArr.sort(function (a, b) { return b[rankingParameter] - a[rankingParameter] })
 }
 
-*/
-
-//TEST
-/*
-let a = 0;
-a = 0 / a;
-b = a.toFixed(2);
-console.log("a: " + a + typeof a);
-console.log("b: " + b + typeof b);
 */

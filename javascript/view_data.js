@@ -1,39 +1,6 @@
 console.log("YOU ARE USING NON-LIVE DATA!")
 
-let membersArray = data.results[0].members;  //UNCOMMENT FOR NON-LIVE
-
-// -----------------
-// LIVE DATA FETCH 
-/*
-function fetchRemoteData(url, init) {
-    return fetch(url, init).then(function (response) {
-        return response.json();
-    })
-        .then(function (jsonedData) {
-            console.log("jsonedData:");
-            console.log(jsonedData);
-            return jsonedData;
-        }).catch(function (error) {
-            console.log("There was a problem: " + error.message);
-        })
-}
-
-
-var initObject = {
-    "headers": {
-        "X-API-Key": "WS6nqjrzT2mQTDM2UCCv3b3RPJPoIbA5HjDHyu72"
-    }
-}
-
-
-fetchRemoteData("https://api.propublica.org/congress/v1/113/senate/members.json", initObject).then(function (json) {
-    var dataLive = json;
-    var membersArray = dataLive.results[0].members;
-    buildTable(membersArray);
-    buildDropdown();
-});
-*/
-// -----------------
+let membersArray = data.results[0].members;  //UNCOMMENT FOR NON-LIVE 
 
 //
 //TABLE BUILDER

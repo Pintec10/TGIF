@@ -1,6 +1,5 @@
 console.log("YOU ARE USING **LIVE** DATA! (...or trying to)")
-
-//let membersArray = data.results[0].members;  //UNCOMMENT FOR NON-LIVE
+let membersArray = [];
 
 // -----------------
 // LIVE DATA FETCH
@@ -9,11 +8,7 @@ function fetchRemoteData(url, init) {
     return fetch(url, init).then(function (response) {
         return response.json();
     })
-        .then(function (jsonedData) {
-            console.log("jsonedData:");
-            console.log(jsonedData);
-            return jsonedData;
-        }).catch(function (error) {
+        .catch(function (error) {
             console.log("There was a problem: " + error.message);
         })
 }
@@ -25,15 +20,17 @@ var initObject = {
     }
 }
 
-fetchRemoteData("https://api.propublica.org/congress/v1/113/senate/members.json", initObject).then(function (json) {
+//Here we make the AJAX call
+fetchRemoteData("https://api.propublica.org/congress/v1/113/" + chamber + "/members.json", initObject).then(function (json) {
     var dataLive = json;
-    var membersArray = dataLive.results[0].members;
+    membersArray = dataLive.results[0].members;
     buildTable(membersArray);
     buildDropdown(membersArray);
 });
 // -----------------
 
-//
+
+// -----------------
 //TABLE BUILDER
 function buildTable(arr) {
     let tableBody = document.getElementById("data-table");
@@ -47,9 +44,14 @@ function buildTable(arr) {
         let seniorityCell = document.createElement("td");
         let votesCell = document.createElement("td");
         // 
-        let congresspersonLink = document.createElement("a");
-        congresspersonLink.href = arr[i].url;
-        congresspersonLink.target = "_blank";
+        if (arr[i].url !== "") {
+            var congresspersonLink = document.createElement("a");
+            congresspersonLink.href = arr[i].url;
+            congresspersonLink.target = "_blank";
+        } else {
+            var congresspersonLink = document.createElement("span");
+        }
+
         congresspersonLink.innerHTML = arr[i].last_name + " " + arr[i].first_name;
         if (arr[i].middle_name !== null) {
             congresspersonLink.innerHTML += " " + arr[i].middle_name;
@@ -65,14 +67,42 @@ function buildTable(arr) {
         tableBody.append(row);
     }
 }
+// -----------------
 
-// buildTable(membersArray); //UNCOMMENT FOR NON-LIVE
 
+// -----------------
+// BUILD DROPDOWN MENU
+function buildDropdown(arr) {
+    let statesArray = [];
 
-//
-// FILTERS v2.0
+    // build array with states
+    for (let i = 0; i < arr.length; i++) {
+        if (statesArray.includes(arr[i].state)) { } else {
+            statesArray.push(arr[i].state);
+        }
+    }
+    statesArray.sort();
+
+    // build menu from that array
+    let dropdownMenu = document.getElementById("state-dropdown");
+    for (let i in statesArray) {
+        let stateOption = document.createElement("option");
+        stateOption.innerHTML = statesArray[i];
+        dropdownMenu.append(stateOption);
+    }
+}
+// -----------------
+
+// -----------------
+// FILTERS
 let selectedParties = [];
 let selectedStates = "all";
+let inputElements = document.getElementsByTagName("input");
+
+document.getElementById("cb-democrat").addEventListener("click", changeSelectedParties);
+document.getElementById("cb-republican").addEventListener("click", changeSelectedParties);
+document.getElementById("cb-independent").addEventListener("click", changeSelectedParties);
+document.getElementById("state-dropdown").addEventListener("change", changeSelectedStates);
 
 // updates selected Parties
 function changeSelectedParties() {
@@ -101,63 +131,4 @@ function filterData() {
     }
     buildTable(displayedArray);
 }
-
-
-
-//
-// BUILD DROPDOWN MENU
-function buildDropdown(arr) {
-    let statesArray = [];
-
-    // build array with states
-    for (let i = 0; i < arr.length; i++) {
-        if (statesArray.includes(arr[i].state)) { } else {
-            statesArray.push(arr[i].state);
-        }
-    }
-    statesArray.sort();
-
-    // build menu from that array
-    let dropdownMenu = document.getElementById("state-dropdown");
-    for (let i in statesArray) {
-        let stateOption = document.createElement("option");
-        stateOption.innerHTML = statesArray[i];
-        dropdownMenu.append(stateOption);
-    }
-}
-
-// buildDropdown(); //UNCOMMENT FOR NON-LIVE
-
-
-
-
-
-
-
-//
-// FILTERS v1.0 - worked, but not the best way to do it.
-/*
-let inputElements = document.getElementsByTagName("input");
-for (let j = 0; j < inputElements.length; j++) {
-    inputElements[j].onchange = filterData;
-}
-
-document.getElementById("state-dropdown").value.onchange = console.log("dropdwn changed");
-
-function filterData() {
-    let displayedArray = membersArray;
-    if (document.getElementById("cb-democrat").checked || document.getElementById("cb-republican").checked || document.getElementById("cb-independent").checked) {
-        if (document.getElementById("cb-democrat").checked === false) {
-            displayedArray = displayedArray.filter(x => x.party !== "D");
-        }
-        if (document.getElementById("cb-republican").checked === false) {
-            displayedArray = displayedArray.filter(x => x.party !== "R");
-        }
-        if (document.getElementById("cb-independent").checked === false) {
-            displayedArray = displayedArray.filter(x => x.party !== "I");
-        }
-    }
-
-    buildTable(displayedArray);
-}
-*/
+// -----------------
