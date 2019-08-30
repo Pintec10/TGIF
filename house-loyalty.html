@@ -78,7 +78,18 @@
                 </div>
                 <div class="col-md-6 mb-5 text-center">
                     <h2>House at a glance</h2>
-                    <table class="table table-hover mt-3">
+                    <div class="display-before-load">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="col-sm-12 text-info text-center p-2 mb-2">
+                                Loading...
+                            </div>
+                            <div class="lds-ripple">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover mt-3 display-after-load">
                         <thead>
                             <tr>
                                 <th>Party</th>
@@ -116,7 +127,18 @@
                 <div class="col-md-6 mb-5">
                     <h2>Least Loyal</h2>
                     <h4>(Bottom 10% of Party)</h4>
-                    <table class="table table-hover mt-3">
+                    <div class="display-before-load">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="col-sm-12 text-info text-center p-2 mb-2">
+                                Loading...
+                            </div>
+                            <div class="lds-ripple">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover mt-3 display-after-load">
                         <thead>
                             <tr>
                                 <th>Representative</th>
@@ -132,7 +154,18 @@
                 <div class="col-md-6 mb-5">
                     <h2>Most Loyal</h2>
                     <h4>(Top 10% of Party)</h4>
-                    <table class="table table-hover mt-3">
+                    <div class="display-before-load">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="col-sm-12 text-info text-center p-2 mb-2">
+                                Loading...
+                            </div>
+                            <div class="lds-ripple">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover mt-3 display-after-load">
                         <thead>
                             <tr>
                                 <th>Representative</th>
@@ -158,14 +191,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
     <!-- JS SCRIPTS -->
-    <script src="./javascript/congress_113_house.js"></script>
+    <script src="./javascript/view_final_live.js"></script>
     <script src="./javascript/model.js"></script>
-    <script src="./javascript/view_stats.js"></script>
     <script>
-        ranking(membersArray, "votes_with_party_pct", 10, 10);
-        buildTable("least-table", lowerResultArr, "votes_with_party", "votes_with_party_pct");
-        buildTable("most-table", higherResultArr, "votes_with_party", "votes_with_party_pct");
+        var chamber = "house";
+        fetchRemoteData(chamber).then(function () {
+            displayControl();
+            atAGlanceData(membersArray);
+            buildAtAGlanceTable();
+            ranking(membersArray, "votes_with_party_pct", 10, 10);
+            buildStatsTable("least-table", lowerResultArr, "votes_with_party", "votes_with_party_pct");
+            buildStatsTable("most-table", higherResultArr, "votes_with_party", "votes_with_party_pct");
+        });
     </script>
 </body>
 

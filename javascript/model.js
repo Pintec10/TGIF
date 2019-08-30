@@ -1,4 +1,4 @@
-let membersArray = data.results[0].members;
+//let membersArray = data.results[0].members;
 
 let statistics = {
     membersDem: 0,
@@ -50,7 +50,7 @@ function atAGlanceData(arr) {
     }
 }
 
-atAGlanceData(membersArray);
+//atAGlanceData(membersArray);
 
 
 
@@ -63,12 +63,13 @@ atAGlanceData(membersArray);
 
 let lowerResultArr = [];
 let higherResultArr = [];
-//adding the "votes_with_party" numerical element (not present in initial data)
-for (let n in membersArray) {
-    membersArray[n].votes_with_party = Math.round(membersArray[n].total_votes * membersArray[n].votes_with_party_pct / 100);
-}
 
 function ranking(startingList, rankingParameter, cutoffPctLower, cutoffPctHigher) {
+    //adding the "votes_with_party" numerical element (not present in initial data)
+    /*for (let n in membersArray) {
+        membersArray[n].votes_with_party = Math.round(membersArray[n].total_votes * membersArray[n].votes_with_party_pct / 100);
+    }*/
+
     let lowerRangeElements = 0;
     let higherRangeElements = 0;
     let cutoffValueLower = 0;

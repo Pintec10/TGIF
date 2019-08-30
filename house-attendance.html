@@ -89,7 +89,18 @@
                 </div>
                 <div class="col-md-6 mb-5 text-center ">
                     <h2>House at a glance</h2>
-                    <table class="table table-hover mt-3">
+                    <div class="display-before-load">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="col-sm-12 text-info text-center p-2 mb-2">
+                                Loading...
+                            </div>
+                            <div class="lds-ripple">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover mt-3 display-after-load">
                         <thead>
                             <tr>
                                 <th>Party</th>
@@ -100,23 +111,23 @@
                         <tbody>
                             <tr>
                                 <td>Republican</td>
-                                <td id="Rep-members">--</td>
-                                <td id="Rep-avg-VWP">--</td>
+                                <td id="Rep-members"></td>
+                                <td id="Rep-avg-VWP"></td>
                             </tr>
                             <tr>
                                 <td>Democrat</td>
-                                <td id="Dem-members">--</td>
-                                <td id="Dem-avg-VWP">--</td>
+                                <td id="Dem-members"></td>
+                                <td id="Dem-avg-VWP"></td>
                             </tr>
                             <tr>
                                 <td>Independent</td>
-                                <td id="Ind-members">--</td>
-                                <td id="Ind-avg-VWP">--</td>
+                                <td id="Ind-members"></td>
+                                <td id="Ind-avg-VWP"></td>
                             </tr>
                             <tr>
                                 <td>Total</td>
-                                <td id="Total-members">--</td>
-                                <td id="Total-avg-VWP">--</td>
+                                <td id="Total-members"></td>
+                                <td id="Total-avg-VWP"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -127,7 +138,18 @@
                 <div class="col-md-6 mb-5">
                     <h2>Least Engaged</h2>
                     <h4>(Bottom 10% Attendance)</h4>
-                    <table class="table table-hover mt-3">
+                    <div class="display-before-load">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="col-sm-12 text-info text-center p-2 mb-2">
+                                Loading...
+                            </div>
+                            <div class="lds-ripple">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover mt-3 display-after-load">
                         <thead>
                             <tr>
                                 <th>Representative</th>
@@ -143,7 +165,18 @@
                 <div class="col-md-6 mb-5">
                     <h2>Most Engaged</h2>
                     <h4>(Top 10% Attendance)</h4>
-                    <table class="table table-hover mt-3">
+                    <div class="display-before-load">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="col-sm-12 text-info text-center p-2 mb-2">
+                                Loading...
+                            </div>
+                            <div class="lds-ripple">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover mt-3 display-after-load">
                         <thead>
                             <tr>
                                 <th>Representative</th>
@@ -163,20 +196,24 @@
         </footer>
     </div>
 
-
-
     <!-- BOOTSTRAP -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
     <!-- JS SCRIPTS -->
-    <script src="./javascript/congress_113_house.js"></script>
+    <script src="./javascript/view_final_live.js"></script>
     <script src="./javascript/model.js"></script>
-    <script src="./javascript/view_stats.js"></script>
     <script>
-        ranking(membersArray, "missed_votes_pct", 10, 10);
-        buildTable("least-table", higherResultArr, "missed_votes", "missed_votes_pct");
-        buildTable("most-table", lowerResultArr, "missed_votes", "missed_votes_pct");
+        var chamber = "house";
+        fetchRemoteData(chamber).then(function () {
+            displayControl();
+            atAGlanceData(membersArray);
+            buildAtAGlanceTable();
+            ranking(membersArray, "missed_votes_pct", 10, 10);
+            buildStatsTable("least-table", higherResultArr, "missed_votes", "missed_votes_pct");
+            buildStatsTable("most-table", lowerResultArr, "missed_votes", "missed_votes_pct");
+        });
     </script>
 </body>
 

@@ -141,7 +141,18 @@
             </div>
 
             <!-- TABLE -->
-            <table class="table table-hover text-center">
+            <div class="display-before-load">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="col-sm-12 text-info text-center p-2 mb-2">
+                        Loading...
+                    </div>
+                    <div class="lds-ripple">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-hover text-center display-after-load">
                 <thead>
                     <tr>
                         <th>Senator</th>
@@ -152,6 +163,7 @@
                     </tr>
                 </thead>
                 <tbody id="data-table">
+
                     <tr>
                         <td colspan="5" class="text-light bg-info">Retrieving data, please wait...</td>
                     </tr>
@@ -166,10 +178,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
     <!-- JS SCRIPTS -->
-    <!--<script src="./javascript/congress_113_senate.js"></script>-->
-    <script> var chamber = "senate" </script>
-    <script src="./javascript/view_data_live.js"></script>
+    <script src="./javascript/view_final_live.js"></script>
+    <script>
+        var chamber = "senate";
+        fetchRemoteData(chamber).then(function () {
+            displayControl();
+            buildMembersTable("data-table", membersArray);
+            buildDropdown(membersArray);
+        });
+    </script>
 </body>
 
 </html>
