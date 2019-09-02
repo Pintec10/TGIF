@@ -65,7 +65,7 @@
         </nav>
 
         <!-- CONTENT -->
-        <main>
+        <main id="app">
             <div class="row">
                 <article class="col-sm-8 mb-3">
                     <h2>Congressmen</h2>
@@ -114,23 +114,6 @@
                                     id="cb-independent">
                                 <label for="cb-independent" class="custom-control-label">Independent</label>
                             </div>
-                            <!--CODE BELOW IS FOR ROLLBACK TO NON-CUSTOM CHECKBOXES-->
-                            <!--<div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="filter-party" value="democrat"
-                                    id="cb-democrat">
-                                <label class="form-check-label" for="cb-democrat">Democrat</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="filter-party" value="republican"
-                                    id="cb-republican">
-                                <label for="cb-republican" class="form-check-label">Republican</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="filter-party" value="independent"
-                                    id="cb-independent">
-                                <label for="cb-independent" class="form-check-label">Independent</label>
-                            </div>-->
-
                         </div>
                     </div>
                 </div>
@@ -147,18 +130,19 @@
             </div>
 
             <!-- TABLE -->
-            <div class="display-before-load">
+            <div class="display-before-load mt-5">
                 <div class="d-flex flex-column align-items-center">
-                    <div class="col-sm-12 text-info text-center p-2 mb-2">
-                        Loading...
-                    </div>
                     <div class="lds-ripple">
                         <div></div>
                         <div></div>
                     </div>
+                    <div class="col-sm-12 text-info text-center p-2 mb-2">
+                        Loading...
+                    </div>
                 </div>
             </div>
-            <table class="table table-hover text-center display-after-load">
+            <!--<table class="table table-hover text-center display-after-load">-->
+            <table class="table table-hover text-center">
                 <thead>
                     <tr>
                         <th>Representative</th>
@@ -169,8 +153,22 @@
                     </tr>
                 </thead>
                 <tbody id="data-table">
-                    <tr>
-                        <td colspan="5" class="text-light bg-info">Retrieving data, please wait...</td>
+                    <tr v-for="member in membersArray">
+                        <td>
+                            {{member.first_name}}
+                        </td>
+                        <td>
+                            {{member.party}}
+                        </td>
+                        <td>
+                            {{member.state}}
+                        </td>
+                        <td>
+                            {{member.seniority}}
+                        </td>
+                        <td>
+                            {{member.votes_with_party_pct}}
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -184,16 +182,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+    <!-- VUE (development version) -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
     <!-- JS SCRIPTS -->
-    <script src="./javascript/view_final_live.js"></script>
-    <script>
+    <script src="./javascript/view_final_Vue.js"></script>
+    <!--<script>
         var chamber = "house";
+
         fetchRemoteData(chamber).then(function () {
             displayControl();
-            buildMembersTable("data-table", membersArray);
-            buildDropdown(membersArray);
+            //buildMembersTable("data-table", membersArray);
+            buildDropdown(app.membersArray);
         });
-    </script>
+
+    </script>-->
 </body>
 
 </html>

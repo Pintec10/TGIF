@@ -1,31 +1,83 @@
-//this is the final version of the JS view file WITHOUT using Vue!
-
 console.log("YOU ARE USING **LIVE** DATA! (...or trying to)")
-let membersArray = [];
+//let membersArray = [];
+
+var app = new Vue({
+    el: "#app",
+    data: {
+        membersArray: [],
+        chamber: "",
+        initObject: {
+            method: "GET",
+            headers: {
+                "X-API-Key": "WS6nqjrzT2mQTDM2UCCv3b3RPJPoIbA5HjDHyu72"
+            }
+        }
+    },
+
+    methods: {
+        fetchRemoteData() {
+            console.log("called fetchRemoteData");
+            url = "https://api.propublica.org/congress/v1/113/" + app.chamber + "/members.json";
+            return fetch(url, initObject).then(function (response) {
+                return response.json()
+            }).then(function (json) {
+                app.membersArray = json.results[0].members;
+                //adding the "votes_with_party" numerical element (not present in initial data)
+                for (let n in app.membersArray) {
+                    app.membersArray[n].votes_with_party = Math.round(app.membersArray[n].total_votes * app.membersArray[n].votes_with_party_pct / 100);
+                }
+                app.displayedArray = app.membersArray;
+            }).catch(function (error) {
+                alert("There was a problem in retrieving data. Error message: " + error.message);
+                console.log("There was a problem: " + error.message);
+            })
+        },
+
+        getData() {
+            console.log("activated getData");
+        }
+    },
+
+    computed: {
+
+        //created() {
+        //  this.fetchRemoteData();
+        //}
+
+        created() {
+            this.getData();
+        }
+    }
+})
 
 // -----------------
 // LIVE DATA FETCH
+/*
 var initObject = {
-    "headers": {
+    method: "GET",
+    headers: {
         "X-API-Key": "WS6nqjrzT2mQTDM2UCCv3b3RPJPoIbA5HjDHyu72"
     }
 }
-
+*/
+/*
 function fetchRemoteData(chamber) { //EXPERIMENTAL
     url = "https://api.propublica.org/congress/v1/113/" + chamber + "/members.json";
     return fetch(url, initObject).then(function (response) {
         return response.json()
     }).then(function (json) {
-        membersArray = json.results[0].members;
+        app.membersArray = json.results[0].members;
         //adding the "votes_with_party" numerical element (not present in initial data)
-        for (let n in membersArray) {
-            membersArray[n].votes_with_party = Math.round(membersArray[n].total_votes * membersArray[n].votes_with_party_pct / 100);
+        for (let n in app.membersArray) {
+            app.membersArray[n].votes_with_party = Math.round(app.membersArray[n].total_votes * app.membersArray[n].votes_with_party_pct / 100);
         }
+        app.displayedArray = app.membersArray;
     }).catch(function (error) {
         alert("There was a problem in retrieving data. Error message: " + error.message);
         console.log("There was a problem: " + error.message);
     })
 };
+*/
 // -----------------
 
 
@@ -175,14 +227,14 @@ function changeSelectedStates() {
 
 //builds the data array to use for table construction
 function filterData() {
-    let displayedArray = membersArray;
+    app.displayedArray = app.membersArray;
     if (selectedParties.length !== 0) {
-        displayedArray = displayedArray.filter(x => selectedParties.includes(x.party));
+        app.displayedArray = app.displayedArray.filter(x => selectedParties.includes(x.party));
     }
     if (selectedStates !== "all") {
-        displayedArray = displayedArray.filter(x => x.state === selectedStates);
+        app.displayedArray = app.displayedArray.filter(x => x.state === selectedStates);
     }
-    buildMembersTable("data-table", displayedArray);
+    //buildMembersTable("data-table", displayedArray);
 }
 // -----------------
 
