@@ -94,24 +94,23 @@
             <div class="form-inline justify-content-between mb-3">
                 <div class="input-group">
                     <div class="input-group-prepend custom-control pl-0">
-                        <!--if rollback to non-custom checkbox, remove "custom-control" above this line-->
-                        <legend class="input-group-text">Filter by Party:</legend>
+                        <legend class="input-group-text">Filter by Party: </legend>
                     </div>
                     <div class="form-control ">
                         <div class="form-inline">
                             <div class="custom-control custom-switch custom-control-inline">
-                                <input class="custom-control-input" type="checkbox" name="filter-party" value="D"
-                                    id="cb-democrat">
+                                <input v-model="selectedParties" class="custom-control-input" type="checkbox"
+                                    name="filter-party" value="D" id="cb-democrat">
                                 <label for="cb-democrat" class="custom-control-label">Democrat</label>
                             </div>
                             <div class="custom-control custom-switch custom-control-inline">
-                                <input class="custom-control-input" type="checkbox" name="filter-party" value="R"
-                                    id="cb-republican">
+                                <input v-model="selectedParties" class="custom-control-input" type="checkbox"
+                                    name="filter-party" value="R" id="cb-republican">
                                 <label for="cb-republican" class="custom-control-label">Republican</label>
                             </div>
                             <div class="custom-control custom-switch custom-control-inline">
-                                <input class="custom-control-input" type="checkbox" name="filter-party" value="I"
-                                    id="cb-independent">
+                                <input v-model="selectedParties" class="custom-control-input" type="checkbox"
+                                    name="filter-party" value="I" id="cb-independent">
                                 <label for="cb-independent" class="custom-control-label">Independent</label>
                             </div>
                         </div>
@@ -120,17 +119,19 @@
 
                 <div class="input-group">
                     <div class="input-group-prepend custom-control">
-                        <!--if rollback to non-custom checkbox, remove "custom-control" above this line-->
-                        <legend class="input-group-text">Filter by State:</legend>
+                        <legend class="input-group-text">Filter by State: </legend>
                     </div>
-                    <select name="filter-state" id="state-dropdown" class="custom-select">
+                    <select v-model="selectedState" name="filter-state" id="state-dropdown" class="custom-select">
                         <option value="all" selected>All states</option>
+                        <option v-for="state in statesArray" v-bind:value="state">
+                            {{state}}
+                        </option>
                     </select>
                 </div>
             </div>
 
             <!-- TABLE -->
-            <div class="display-before-load mt-5">
+            <div v-if="loaded === false" class=" mt-5">
                 <div class="d-flex flex-column align-items-center">
                     <div class="lds-ripple">
                         <div></div>
@@ -141,8 +142,8 @@
                     </div>
                 </div>
             </div>
-            <!--<table class="table table-hover text-center display-after-load">-->
-            <table class="table table-hover text-center">
+
+            <table v-if="loaded === true" class="table table-hover text-center">
                 <thead>
                     <tr>
                         <th>Representative</th>
@@ -153,9 +154,17 @@
                     </tr>
                 </thead>
                 <tbody id="data-table">
-                    <tr v-for="member in membersArray">
+                    <tr v-if="filterData == ''">
+                        <td colspan="5" class="text-danger">No delegates corresponding to selected filters</td>
+                    </tr>
+                    <tr v-for="member in filterData">
                         <td>
-                            {{member.first_name}}
+                            <a v-if="member.url !=='' " v-bind:href="member.url">
+                                {{member.last_name}} {{member.first_name}} {{member.middle_name}}
+                            </a>
+                            <span v-else>
+                                {{member.last_name}} {{member.first_name}} {{member.middle_name}}
+                            </span>
                         </td>
                         <td>
                             {{member.party}}
@@ -186,17 +195,9 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
     <!-- JS SCRIPTS -->
+    <script>var chamber = "house";</script>
     <script src="./javascript/view_final_Vue.js"></script>
-    <!--<script>
-        var chamber = "house";
 
-        fetchRemoteData(chamber).then(function () {
-            displayControl();
-            //buildMembersTable("data-table", membersArray);
-            buildDropdown(app.membersArray);
-        });
-
-    </script>-->
 </body>
 
 </html>

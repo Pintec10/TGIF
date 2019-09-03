@@ -5,20 +5,22 @@ var app = new Vue({
     el: "#app",
     data: {
         membersArray: [],
-        chamber: "",
+        url: "https://api.propublica.org/congress/v1/113/" + chamber + "/members.json",
         initObject: {
             method: "GET",
             headers: {
                 "X-API-Key": "WS6nqjrzT2mQTDM2UCCv3b3RPJPoIbA5HjDHyu72"
             }
-        }
+        },
+        loaded: false,
+        statesArray: [],
+        selectedParties: [],
+        selectedState: "all"
     },
 
     methods: {
         fetchRemoteData() {
-            console.log("called fetchRemoteData");
-            url = "https://api.propublica.org/congress/v1/113/" + app.chamber + "/members.json";
-            return fetch(url, initObject).then(function (response) {
+            return fetch(this.url, this.initObject).then(function (response) { // .****WHY NOT app.url????
                 return response.json()
             }).then(function (json) {
                 app.membersArray = json.results[0].members;
@@ -26,63 +28,40 @@ var app = new Vue({
                 for (let n in app.membersArray) {
                     app.membersArray[n].votes_with_party = Math.round(app.membersArray[n].total_votes * app.membersArray[n].votes_with_party_pct / 100);
                 }
-                app.displayedArray = app.membersArray;
+                app.buildDropdown();
+                app.loaded = true;
             }).catch(function (error) {
                 alert("There was a problem in retrieving data. Error message: " + error.message);
                 console.log("There was a problem: " + error.message);
             })
         },
 
-        getData() {
-            console.log("activated getData");
+        buildDropdown() {
+            // builds array with states
+            for (let i = 0; i < this.membersArray.length; i++) {
+                if (this.statesArray.includes(this.membersArray[i].state)) { } else {
+                    this.statesArray.push(this.membersArray[i].state);
+                }
+            }
+            this.statesArray.sort();
         }
     },
 
     computed: {
-
-        //created() {
-        //  this.fetchRemoteData();
-        //}
-
-        created() {
-            this.getData();
+        filterData() {
+            return this.membersArray.filter(x => (app.selectedParties.includes(x.party) || app.selectedParties.length === 0) && (app.selectedState.includes(x.state) || app.selectedState === "all"));
         }
+    },
+
+    created() {
+        this.fetchRemoteData();
     }
 })
-
-// -----------------
-// LIVE DATA FETCH
-/*
-var initObject = {
-    method: "GET",
-    headers: {
-        "X-API-Key": "WS6nqjrzT2mQTDM2UCCv3b3RPJPoIbA5HjDHyu72"
-    }
-}
-*/
-/*
-function fetchRemoteData(chamber) { //EXPERIMENTAL
-    url = "https://api.propublica.org/congress/v1/113/" + chamber + "/members.json";
-    return fetch(url, initObject).then(function (response) {
-        return response.json()
-    }).then(function (json) {
-        app.membersArray = json.results[0].members;
-        //adding the "votes_with_party" numerical element (not present in initial data)
-        for (let n in app.membersArray) {
-            app.membersArray[n].votes_with_party = Math.round(app.membersArray[n].total_votes * app.membersArray[n].votes_with_party_pct / 100);
-        }
-        app.displayedArray = app.membersArray;
-    }).catch(function (error) {
-        alert("There was a problem in retrieving data. Error message: " + error.message);
-        console.log("There was a problem: " + error.message);
-    })
-};
-*/
-// -----------------
 
 
 // -----------------
 //TABLE BUILDERS
+/*
 function buildMembersTable(tableID, usedDataArr) {
     let tableBody = document.getElementById(tableID);
     tableBody.innerHTML = "";
@@ -128,8 +107,8 @@ function buildMembersTable(tableID, usedDataArr) {
         tableBody.append(row);
     }
 }
-
-
+*/
+/*
 function buildStatsTable(tableID, usedDataArr, numberDisplayed, pctDisplayed) {
     let tableBody = document.getElementById(tableID);
     for (let i = 0; i < usedDataArr.length; i++) {
@@ -170,11 +149,13 @@ function buildAtAGlanceTable() {
     document.getElementById("Ind-avg-VWP").innerHTML = statistics.avgVWPInd;
     document.getElementById("Total-avg-VWP").innerHTML = statistics.avgVWPTotal;
 }
+*/
 // -----------------
 
 
 // -----------------
 // BUILD DROPDOWN MENU
+/*
 function buildDropdown(usedDataArr) {
     let statesArray = [];
 
@@ -195,10 +176,11 @@ function buildDropdown(usedDataArr) {
     }
 }
 // -----------------
-
+*/
 
 // -----------------
 // FILTERS
+/*
 let selectedParties = [];
 let selectedStates = "all";
 
@@ -206,6 +188,9 @@ document.getElementById("cb-democrat").addEventListener("click", changeSelectedP
 document.getElementById("cb-republican").addEventListener("click", changeSelectedParties);
 document.getElementById("cb-independent").addEventListener("click", changeSelectedParties);
 document.getElementById("state-dropdown").addEventListener("change", changeSelectedStates);
+*/
+
+
 
 // updates selected Parties
 function changeSelectedParties() {
@@ -217,13 +202,13 @@ function changeSelectedParties() {
     filterData();
 }
 
-
+/*
 //updates selected State
 function changeSelectedStates() {
     selectedStates = event.target.value;
     filterData();
 }
-
+*/
 
 //builds the data array to use for table construction
 function filterData() {
