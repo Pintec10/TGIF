@@ -44,9 +44,9 @@
 }
 
 /* LOADER */
-/*.display-after-load {
+.display-after-load {
     display: none;
-}*/
+}
 
 .lds-ripple {
     display: inline-block;
