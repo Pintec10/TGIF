@@ -1,6 +1,5 @@
-//this is the final version of the JS view file WITHOUT using Vue!
+//this JS file does NOT use Vue!
 
-console.log("YOU ARE USING **LIVE** DATA! (...or trying to)")
 let membersArray = [];
 
 // -----------------
@@ -11,13 +10,13 @@ var initObject = {
     }
 }
 
-function fetchRemoteData(chamber) { //EXPERIMENTAL
+function fetchRemoteData(chamber) {
     url = "https://api.propublica.org/congress/v1/113/" + chamber + "/members.json";
     return fetch(url, initObject).then(function (response) {
         return response.json()
     }).then(function (json) {
         membersArray = json.results[0].members;
-        //adding the "votes_with_party" numerical element (not present in initial data)
+        //...adding the "votes_with_party" numerical element (not present in initial data)...
         for (let n in membersArray) {
             membersArray[n].votes_with_party = Math.round(membersArray[n].total_votes * membersArray[n].votes_with_party_pct / 100);
         }
@@ -31,52 +30,6 @@ function fetchRemoteData(chamber) { //EXPERIMENTAL
 
 // -----------------
 //TABLE BUILDERS
-function buildMembersTable(tableID, usedDataArr) {
-    let tableBody = document.getElementById(tableID);
-    tableBody.innerHTML = "";
-    for (i = 0; i < usedDataArr.length; i++) {
-
-        let row = document.createElement("tr");
-        let fullNameCell = document.createElement("td");
-        let partyCell = document.createElement("td");
-        let stateCell = document.createElement("td");
-        let seniorityCell = document.createElement("td");
-        let votesCell = document.createElement("td");
-        // 
-        if (usedDataArr[i].url !== "") {
-            var congresspersonLink = document.createElement("a");
-            congresspersonLink.href = usedDataArr[i].url;
-            congresspersonLink.target = "_blank";
-        } else {
-            var congresspersonLink = document.createElement("span");
-        }
-
-        congresspersonLink.innerHTML = usedDataArr[i].last_name + " " + usedDataArr[i].first_name;
-        if (usedDataArr[i].middle_name !== null) {
-            congresspersonLink.innerHTML += " " + usedDataArr[i].middle_name;
-        }
-        // 
-        partyCell.innerHTML = usedDataArr[i].party;
-        stateCell.innerHTML = usedDataArr[i].state;
-        seniorityCell.innerHTML = usedDataArr[i].seniority;
-        votesCell.innerHTML = usedDataArr[i].votes_with_party_pct + "%";
-        //
-        fullNameCell.append(congresspersonLink);
-        row.append(fullNameCell, partyCell, stateCell, seniorityCell, votesCell);
-        tableBody.append(row);
-    }
-
-    if (usedDataArr.length === 0) {
-        let row = document.createElement("tr");
-        let resultCell = document.createElement("td");
-        resultCell.colSpan = "5";
-        resultCell.className = "text-danger";
-        resultCell.innerHTML = "There are no delegates corresponding to the selected filters";
-        row.append(resultCell);
-        tableBody.append(row);
-    }
-}
-
 
 function buildStatsTable(tableID, usedDataArr, numberDisplayed, pctDisplayed) {
     let tableBody = document.getElementById(tableID);
@@ -200,3 +153,58 @@ function displayControl() {
     }
 }
 // -----------------
+
+
+
+
+
+
+
+// NO MORE USED
+/*
+function buildMembersTable(tableID, usedDataArr) {
+    let tableBody = document.getElementById(tableID);
+    tableBody.innerHTML = "";
+    for (i = 0; i < usedDataArr.length; i++) {
+
+        let row = document.createElement("tr");
+        let fullNameCell = document.createElement("td");
+        let partyCell = document.createElement("td");
+        let stateCell = document.createElement("td");
+        let seniorityCell = document.createElement("td");
+        let votesCell = document.createElement("td");
+        //
+        if (usedDataArr[i].url !== "") {
+            var congresspersonLink = document.createElement("a");
+            congresspersonLink.href = usedDataArr[i].url;
+            congresspersonLink.target = "_blank";
+        } else {
+            var congresspersonLink = document.createElement("span");
+        }
+
+        congresspersonLink.innerHTML = usedDataArr[i].last_name + " " + usedDataArr[i].first_name;
+        if (usedDataArr[i].middle_name !== null) {
+            congresspersonLink.innerHTML += " " + usedDataArr[i].middle_name;
+        }
+        //
+        partyCell.innerHTML = usedDataArr[i].party;
+        stateCell.innerHTML = usedDataArr[i].state;
+        seniorityCell.innerHTML = usedDataArr[i].seniority;
+        votesCell.innerHTML = usedDataArr[i].votes_with_party_pct + "%";
+        //
+        fullNameCell.append(congresspersonLink);
+        row.append(fullNameCell, partyCell, stateCell, seniorityCell, votesCell);
+        tableBody.append(row);
+    }
+
+    if (usedDataArr.length === 0) {
+        let row = document.createElement("tr");
+        let resultCell = document.createElement("td");
+        resultCell.colSpan = "5";
+        resultCell.className = "text-danger";
+        resultCell.innerHTML = "There are no delegates corresponding to the selected filters";
+        row.append(resultCell);
+        tableBody.append(row);
+    }
+}
+*/

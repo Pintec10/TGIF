@@ -1,5 +1,3 @@
-//let membersArray = data.results[0].members;
-
 let statistics = {
     membersDem: 0,
     membersRep: 0,
@@ -10,6 +8,7 @@ let statistics = {
     avgVWPInd: 0,
     avgVWPTotal: 0
 }
+
 
 //
 // BUILDING SEPARATE LISTS FOR PARTIES AND "AT A GLANCE" TABLE DATA
@@ -42,16 +41,12 @@ function atAGlanceData(arr) {
     statistics.membersTotal = listDem.length + listRep.length + listInd.length;
     statistics.avgVWPDem = (avgDem / listDem.length).toFixed(2) + " %";
     statistics.avgVWPRep = (avgRep / listRep.length).toFixed(2) + " %";
-    //statistics.avgVWPInd = listInd.length == 0 ? 0 : (avgInd / listInd.length).toFixed(2);
     statistics.avgVWPInd = (avgInd / listInd.length).toFixed(2) + " %";
     statistics.avgVWPTotal = (avgTotal / membersArray.length).toFixed(2) + " %";
     for (key in statistics) {
         statistics[key] === "NaN %" ? statistics[key] = "---" : "";
     }
 }
-
-//atAGlanceData(membersArray);
-
 
 
 //
@@ -60,15 +55,10 @@ function atAGlanceData(arr) {
 // Example of how to call it in the HTML script:
 // ranking(membersArray, "votes_with_party_pct", 20, 10);
 
-
 let lowerResultArr = [];
 let higherResultArr = [];
 
 function ranking(startingList, rankingParameter, cutoffPctLower, cutoffPctHigher) {
-    //adding the "votes_with_party" numerical element (not present in initial data)
-    /*for (let n in membersArray) {
-        membersArray[n].votes_with_party = Math.round(membersArray[n].total_votes * membersArray[n].votes_with_party_pct / 100);
-    }*/
 
     let lowerRangeElements = 0;
     let higherRangeElements = 0;
@@ -90,41 +80,3 @@ function ranking(startingList, rankingParameter, cutoffPctLower, cutoffPctHigher
 
 }
 
-//console.log(membersArray);
-
-
-// ROLLBACK BACKUP - USE IN CASE OF A SCREW-UP
-/*
-
-let lowerResultArr = [];
-let higherResultArr = []
-
-function ranking(startingList, rankingParameter, cutoffPctLower, cutoffPctHigher) {
-    let orderedValuesArr = [];
-    let lowerRange = 0;
-    let higherRange = 0;
-    let cutoffValueLower = 0;
-    let cutoffValueHigher = 0;
-
-    //determine cutoff values
-    for (let i = 0; i < startingList.length; i++) {
-        orderedValuesArr.push(membersArray[i][rankingParameter]);
-    }
-    orderedValuesArr.sort(function (a, b) { return a - b });
-    lowerRange = Math.round(orderedValuesArr.length * cutoffPctLower / 100);
-    higherRange = Math.round(orderedValuesArr.length * cutoffPctHigher / 100);
-    cutoffValueLower = orderedValuesArr[lowerRange - 1];
-    cutoffValueHigher = orderedValuesArr[orderedValuesArr.length - higherRange];
-    for (let j = 0; j < startingList.length; j++) {
-        if (startingList[j][rankingParameter] <= cutoffValueLower) {
-            lowerResultArr.push(startingList[j]);
-        }
-        if (startingList[j][rankingParameter] >= cutoffValueHigher) {
-            higherResultArr.push(startingList[j]);
-        }
-    }
-    lowerResultArr.sort(function (a, b) { return a[rankingParameter] - b[rankingParameter] })
-    higherResultArr.sort(function (a, b) { return b[rankingParameter] - a[rankingParameter] })
-}
-
-*/
