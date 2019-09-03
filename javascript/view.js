@@ -75,6 +75,79 @@ function buildAtAGlanceTable() {
 
 
 // -----------------
+//DISPLAY/HIDE ELEMENTS BEFORE/AFTER LOADING
+function displayControl() {
+    let displayChangers = document.getElementsByClassName("display-before-load");
+    for (let i = 0; i < displayChangers.length; i++) {
+        displayChangers[i].style.display = "none";
+    }
+    displayChangers = document.getElementsByClassName("display-after-load");
+    for (let i = 0; i < displayChangers.length; i++) {
+        displayChangers[i].style.display = "table";
+    }
+}
+// -----------------
+
+
+
+
+
+
+
+// NO MORE USED
+/*
+
+// -----------------
+// DATA TABLE BUILDER
+function buildMembersTable(tableID, usedDataArr) {
+    let tableBody = document.getElementById(tableID);
+    tableBody.innerHTML = "";
+    for (i = 0; i < usedDataArr.length; i++) {
+
+        let row = document.createElement("tr");
+        let fullNameCell = document.createElement("td");
+        let partyCell = document.createElement("td");
+        let stateCell = document.createElement("td");
+        let seniorityCell = document.createElement("td");
+        let votesCell = document.createElement("td");
+        //
+        if (usedDataArr[i].url !== "") {
+            var congresspersonLink = document.createElement("a");
+            congresspersonLink.href = usedDataArr[i].url;
+            congresspersonLink.target = "_blank";
+        } else {
+            var congresspersonLink = document.createElement("span");
+        }
+
+        congresspersonLink.innerHTML = usedDataArr[i].last_name + " " + usedDataArr[i].first_name;
+        if (usedDataArr[i].middle_name !== null) {
+            congresspersonLink.innerHTML += " " + usedDataArr[i].middle_name;
+        }
+        //
+        partyCell.innerHTML = usedDataArr[i].party;
+        stateCell.innerHTML = usedDataArr[i].state;
+        seniorityCell.innerHTML = usedDataArr[i].seniority;
+        votesCell.innerHTML = usedDataArr[i].votes_with_party_pct + "%";
+        //
+        fullNameCell.append(congresspersonLink);
+        row.append(fullNameCell, partyCell, stateCell, seniorityCell, votesCell);
+        tableBody.append(row);
+    }
+
+    if (usedDataArr.length === 0) {
+        let row = document.createElement("tr");
+        let resultCell = document.createElement("td");
+        resultCell.colSpan = "5";
+        resultCell.className = "text-danger";
+        resultCell.innerHTML = "There are no delegates corresponding to the selected filters";
+        row.append(resultCell);
+        tableBody.append(row);
+    }
+}
+// -----------------
+
+
+// -----------------
 // BUILD DROPDOWN MENU
 function buildDropdown(usedDataArr) {
     let statesArray = [];
@@ -139,72 +212,4 @@ function filterData() {
 }
 // -----------------
 
-
-// -----------------
-//DISPLAY/HIDE ELEMENTS BEFORE/AFTER LOADING
-function displayControl() {
-    let displayChangers = document.getElementsByClassName("display-before-load");
-    for (let i = 0; i < displayChangers.length; i++) {
-        displayChangers[i].style.display = "none";
-    }
-    displayChangers = document.getElementsByClassName("display-after-load");
-    for (let i = 0; i < displayChangers.length; i++) {
-        displayChangers[i].style.display = "table";
-    }
-}
-// -----------------
-
-
-
-
-
-
-
-// NO MORE USED
-/*
-function buildMembersTable(tableID, usedDataArr) {
-    let tableBody = document.getElementById(tableID);
-    tableBody.innerHTML = "";
-    for (i = 0; i < usedDataArr.length; i++) {
-
-        let row = document.createElement("tr");
-        let fullNameCell = document.createElement("td");
-        let partyCell = document.createElement("td");
-        let stateCell = document.createElement("td");
-        let seniorityCell = document.createElement("td");
-        let votesCell = document.createElement("td");
-        //
-        if (usedDataArr[i].url !== "") {
-            var congresspersonLink = document.createElement("a");
-            congresspersonLink.href = usedDataArr[i].url;
-            congresspersonLink.target = "_blank";
-        } else {
-            var congresspersonLink = document.createElement("span");
-        }
-
-        congresspersonLink.innerHTML = usedDataArr[i].last_name + " " + usedDataArr[i].first_name;
-        if (usedDataArr[i].middle_name !== null) {
-            congresspersonLink.innerHTML += " " + usedDataArr[i].middle_name;
-        }
-        //
-        partyCell.innerHTML = usedDataArr[i].party;
-        stateCell.innerHTML = usedDataArr[i].state;
-        seniorityCell.innerHTML = usedDataArr[i].seniority;
-        votesCell.innerHTML = usedDataArr[i].votes_with_party_pct + "%";
-        //
-        fullNameCell.append(congresspersonLink);
-        row.append(fullNameCell, partyCell, stateCell, seniorityCell, votesCell);
-        tableBody.append(row);
-    }
-
-    if (usedDataArr.length === 0) {
-        let row = document.createElement("tr");
-        let resultCell = document.createElement("td");
-        resultCell.colSpan = "5";
-        resultCell.className = "text-danger";
-        resultCell.innerHTML = "There are no delegates corresponding to the selected filters";
-        row.append(resultCell);
-        tableBody.append(row);
-    }
-}
 */
