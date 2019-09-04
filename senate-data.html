@@ -149,7 +149,7 @@
                 </thead>
                 <tbody id="data-table">
                     <tr v-if="filterData == ''">
-                        <td colspan="5" class="text-danger">No delegates corresponding to selected filters</td>
+                        <td colspan="5" class="text-danger">There are no {{selectedFiltersStringBuilder}}</td>
                     </tr>
                     <tr v-for="member in filterData">
                         <td>
@@ -170,7 +170,7 @@
                             {{member.seniority}}
                         </td>
                         <td>
-                            {{member.votes_with_party_pct}}
+                            {{member.votes_with_party_pct}} %
                         </td>
                     </tr>
                 </tbody>
