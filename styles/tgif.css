@@ -1,3 +1,7 @@
+body {
+    font-family: 'Lato', sans-serif;
+}
+
 .custom-logo {
     height: 80px;
 }
@@ -41,6 +45,10 @@
 .active {
     color: white!important;
     background-color:#007BFF;
+}
+
+.fixed-height {
+    height: 80px;
 }
 
 /* LOADER */
